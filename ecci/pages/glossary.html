@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Glosario técnico bilingüe — 35 términos de FrontEnd, UX/UI, Color Theory, IA, Bootstrap y Software Engineering.">
+  <title>Glosario Técnico | Eventos Académicos 2026</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { padding-top: 70px; }
+
+    .gloss-hero {
+      background: linear-gradient(135deg, #1E3A5F 0%, #0d2240 100%);
+      padding: 4rem 0 3rem;
+      color: white;
+    }
+
+    .search-wrap {
+      position: relative;
+      max-width: 480px;
+      margin: 1.5rem auto 0;
+    }
+
+    .search-wrap input {
+      border-radius: 50px;
+      padding: .65rem 1.2rem .65rem 3rem;
+      border: none;
+      font-size: .95rem;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    }
+
+    .search-wrap .bi-search {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888;
+    }
+
+    .dark-mode .search-wrap input {
+      background: #2a2a2a;
+      color: #f5f5f5;
+    }
+
+    .filter-tabs .btn {
+      border-radius: 50px;
+      font-size: .8rem;
+      font-weight: 600;
+      padding: .35rem 1rem;
+      margin: .2rem;
+      transition: all .25s;
+    }
+
+    .filter-tabs .btn.active,
+    .filter-tabs .btn:hover {
+      background: #1E3A5F !important;
+      color: white !important;
+      border-color: #1E3A5F !important;
+    }
+
+    .gloss-table {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(30,58,95,.1);
+    }
+
+    .gloss-table thead {
+      background: #1E3A5F;
+      color: white;
+    }
+
+    .gloss-table thead th {
+      font-weight: 700;
+      font-size: .85rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 1rem 1.25rem;
+      border: none;
+    }
+
+    .gloss-table tbody tr {
+      transition: background .2s;
+      border-bottom: 1px solid rgba(30,58,95,.08);
+    }
+
+    .gloss-table tbody tr:hover {
+      background: rgba(30,58,95,.05);
+    }
+
+    .dark-mode .gloss-table tbody tr:hover {
+      background: rgba(244,180,0,.06);
+    }
+
+    .gloss-table tbody td {
+      padding: .9rem 1.25rem;
+      font-size: .9rem;
+      vertical-align: middle;
+    }
+
+    .dark-mode .gloss-table { background: #1E1E1E; color: #F5F5F5; }
+    .dark-mode .gloss-table tbody tr { border-bottom-color: rgba(255,255,255,.07); }
+
+    .term-en {
+      font-weight: 700;
+      color: #1E3A5F;
+      font-size: .92rem;
+    }
+
+    .dark-mode .term-en { color: #F4B400; }
+
+    .term-es {
+      color: #2E8B57;
+      font-size: .85rem;
+      font-weight: 600;
+    }
+
+    .dark-mode .term-es { color: #7dd3a8; }
+
+    .cat-badge {
+      font-size: .68rem;
+      font-weight: 700;
+      padding: .22rem .65rem;
+      border-radius: 50px;
+      letter-spacing: .05em;
+    }
+
+    .cat-frontend  { background: rgba(30,58,95,.1); color: #1E3A5F; }
+    .cat-ux        { background: rgba(255,107,107,.12); color: #c0392b; }
+    .cat-color     { background: rgba(46,139,87,.12); color: #1a6636; }
+    .cat-ai        { background: rgba(123,31,162,.1); color: #6a1aad; }
+    .cat-bootstrap { background: rgba(86,61,124,.1); color: #563d7c; }
+    .cat-software  { background: rgba(244,180,0,.15); color: #8a6d00; }
+    .cat-accesib   { background: rgba(23,162,184,.12); color: #0c7a8f; }
+
+    .dark-mode .cat-frontend  { background: rgba(30,58,95,.3); color: #93b4e0; }
+    .dark-mode .cat-ux        { background: rgba(255,107,107,.2); color: #ff9a9a; }
+    .dark-mode .cat-color     { background: rgba(46,139,87,.2); color: #7dd3a8; }
+    .dark-mode .cat-ai        { background: rgba(123,31,162,.2); color: #c084fc; }
+    .dark-mode .cat-bootstrap { background: rgba(86,61,124,.2); color: #b39ddb; }
+    .dark-mode .cat-software  { background: rgba(244,180,0,.2); color: #F4B400; }
+    .dark-mode .cat-accesib   { background: rgba(23,162,184,.2); color: #67e8f9; }
+
+    .hidden-row { display: none; }
+
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+      color: #888;
+    }
+
+    .stats-bar {
+      background: rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: .75rem 1.5rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .stat-item { text-align: center; }
+    .stat-item .num { font-size: 1.5rem; font-weight: 900; color: #F4B400; line-height: 1; }
+    .stat-item .lbl { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.65); }
+
+    #resultCount {
+      font-size: .82rem;
+      color: #888;
+      margin-bottom: .5rem;
+    }
+
+    .dark-mode #resultCount { color: rgba(245,245,245,.5); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="../index.html">
+      <i class="bi bi-arrow-left me-1"></i>Eventos<span>2026</span>
+    </a>
+    <div class="d-flex align-items-center gap-2">
+      <button id="darkModeToggle" aria-label="Cambiar modo">
+        <i class="bi bi-moon-stars-fill me-1"></i> Modo Oscuro
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="gloss-hero">
+  <div class="container text-center">
+    <div class="mb-3">
+      <span style="background:rgba(244,180,0,.2);color:#F4B400;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem 1rem;border-radius:50px;">
+        <i class="bi bi-book me-1"></i>Glosario Técnico
+      </span>
+    </div>
+    <h1 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;margin-bottom:.5rem;">
+      Technical Glossary
+    </h1>
+    <p style="color:rgba(255,255,255,.7);max-width:520px;margin:0 auto;font-size:.95rem;line-height:1.7;">
+      35 términos técnicos esenciales de FrontEnd, UX/UI, Color Theory, IA, Bootstrap y Software Engineering. Bilingüe Español–English.
+    </p>
+
+    <div class="search-wrap">
+      <i class="bi bi-search"></i>
+      <input type="text" id="glossSearch" placeholder="Buscar término en inglés, español o categoría..." autocomplete="off">
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item"><div class="num">35</div><div class="lbl">Términos</div></div>
+      <div class="stat-item"><div class="num">7</div><div class="lbl">Categorías</div></div>
+      <div class="stat-item"><div class="num">2</div><div class="lbl">Idiomas</div></div>
+      <div class="stat-item"><div class="num">100%</div><div class="lbl">Definidos</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="container py-5">
+
+  <!-- Filters -->
+  <div class="filter-tabs d-flex flex-wrap justify-content-center mb-3">
+    <button class="btn btn-outline-secondary active" data-cat="all">
+      <i class="bi bi-grid me-1"></i>Todos
+    </button>
+    <button class="btn btn-outline-secondary" data-cat="frontend">
+      <i class="bi bi-code-slash me-1"></i>FrontEnd
+    </button>
+    <button class="btn btn-outline-secondary" data-cat="ux">
+      <i class="bi bi-phone me-1"></i>UX/UI
+    </button>
+    <button class="btn btn-outline-secondary" data-cat="color">
+      <i class="bi bi-palette me-1"></i>Color Theory
+    </button>
+    <button class="btn btn-outline-secondary" data-cat="ai">
+      <i class="bi bi-cpu me-1"></i>AI / IA
+    </button>
+    <button class="btn btn-outline-secondary" data-cat="bootstrap">
+      <i class="bi bi-bootstrap me-1"></i>Bootstrap
+    </button>
+    <button class="btn btn-outline-secondary" data-cat="software">
+      <i class="bi bi-gear me-1"></i>Software Eng.
+    </button>
+    <button class="btn btn-outline-secondary" data-cat="accesib">
+      <i class="bi bi-universal-access me-1"></i>Accesibilidad
+    </button>
+  </div>
+
+  <div id="resultCount" class="text-center mb-2">Mostrando <strong id="visibleCount">35</strong> de 35 términos</div>
+
+  <!-- Table -->
+  <div class="table-responsive gloss-table">
+    <table class="table table-hover mb-0" id="glossTable">
+      <thead>
+        <tr>
+          <th style="width:22%"><i class="bi bi-translate me-1"></i>English Term</th>
+          <th style="width:18%"><i class="bi bi-chat-text me-1"></i>Español</th>
+          <th style="width:12%"><i class="bi bi-tag me-1"></i>Categoría</th>
+          <th><i class="bi bi-info-circle me-1"></i>Definition / Definición</th>
+        </tr>
+      </thead>
+      <tbody id="glossBody">
+
+        <!-- ── FRONTEND ──────────────────────────────────────────── -->
+        <tr data-cat="frontend">
+          <td><span class="term-en">Responsive Design</span></td>
+          <td><span class="term-es">Diseño Responsivo</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>Design approach that makes web pages render well on a variety of devices and screen sizes by using flexible grids, layouts, and CSS media queries.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">CSS Grid</span></td>
+          <td><span class="term-es">Cuadrícula CSS</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>A two-dimensional CSS layout system that divides a page into rows and columns, enabling precise placement of elements without floats or positioning.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">Flexbox</span></td>
+          <td><span class="term-es">Caja Flexible</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>A one-dimensional CSS layout method for arranging items in a row or column, providing powerful alignment and distribution capabilities.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">Media Query</span></td>
+          <td><span class="term-es">Consulta de Medios</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>A CSS technique that applies different styles based on the characteristics of the user's device, such as screen width, resolution, or orientation.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">DOM (Document Object Model)</span></td>
+          <td><span class="term-es">Modelo de Objeto del Documento</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>A programming interface for web documents that represents the page as a tree of objects, allowing JavaScript to dynamically modify content and structure.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">Semantic HTML</span></td>
+          <td><span class="term-es">HTML Semántico</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>The use of HTML elements according to their intended purpose (e.g., &lt;header&gt;, &lt;article&gt;, &lt;nav&gt;), improving SEO, accessibility and code readability.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">CSS Custom Properties</span></td>
+          <td><span class="term-es">Variables CSS</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>CSS variables defined with -- prefix that store reusable values (colors, fonts, sizes), enabling consistent theming and easier maintenance across stylesheets.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">LocalStorage</span></td>
+          <td><span class="term-es">Almacenamiento Local</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>A Web API that allows JavaScript to store key-value pairs in the browser with no expiration date, persisting data across sessions without a server.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">Event Listener</span></td>
+          <td><span class="term-es">Escuchador de Eventos</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>A JavaScript procedure that waits for a specific event (click, scroll, input) on a DOM element and executes a callback function when the event occurs.</td>
+        </tr>
+
+        <tr data-cat="frontend">
+          <td><span class="term-en">Intersection Observer</span></td>
+          <td><span class="term-es">Observador de Intersección</span></td>
+          <td><span class="cat-badge cat-frontend">FrontEnd</span></td>
+          <td>A JavaScript API that asynchronously observes changes in the intersection of a target element with the viewport, used for lazy loading and scroll animations.</td>
+        </tr>
+
+        <!-- ── UX/UI ──────────────────────────────────────────────── -->
+        <tr data-cat="ux">
+          <td><span class="term-en">User Experience (UX)</span></td>
+          <td><span class="term-es">Experiencia de Usuario</span></td>
+          <td><span class="cat-badge cat-ux">UX/UI</span></td>
+          <td>The overall experience a person has when interacting with a product or service, encompassing usability, accessibility, performance, and emotional response.</td>
+        </tr>
+
+        <tr data-cat="ux">
+          <td><span class="term-en">User Interface (UI)</span></td>
+          <td><span class="term-es">Interfaz de Usuario</span></td>
+          <td><span class="cat-badge cat-ux">UX/UI</span></td>
+          <td>The visual and interactive elements through which a user interacts with a digital product: buttons, menus, forms, typography, icons, and layout.</td>
+        </tr>
+
+        <tr data-cat="ux">
+          <td><span class="term-en">Wireframe</span></td>
+          <td><span class="term-es">Esquema de Pantalla</span></td>
+          <td><span class="cat-badge cat-ux">UX/UI</span></td>
+          <td>A low-fidelity visual guide representing the skeletal structure of a digital interface, focusing on layout and functionality without visual design details.</td>
+        </tr>
+
+        <tr data-cat="ux">
+          <td><span class="term-en">Usability</span></td>
+          <td><span class="term-es">Usabilidad</span></td>
+          <td><span class="cat-badge cat-ux">UX/UI</span></td>
+          <td>The ease with which users can learn and use a product to achieve their goals effectively, efficiently, and with satisfaction.</td>
+        </tr>
+
+        <tr data-cat="ux">
+          <td><span class="term-en">Information Architecture</span></td>
+          <td><span class="term-es">Arquitectura de Información</span></td>
+          <td><span class="cat-badge cat-ux">UX/UI</span></td>
+          <td>The structural design of shared information environments, organizing and labeling content in an effective and sustainable way to support usability and findability.</td>
+        </tr>
+
+        <tr data-cat="ux">
+          <td><span class="term-en">Microinteraction</span></td>
+          <td><span class="term-es">Microinteracción</span></td>
+          <td><span class="cat-badge cat-ux">UX/UI</span></td>
+          <td>Small, contained product moments that accomplish a single task — like a button hover animation or a form validation indicator — that improve overall UX.</td>
+        </tr>
+
+        <tr data-cat="ux">
+          <td><span class="term-en">Affordance</span></td>
+          <td><span class="term-es">Affordance / Señal de Uso</span></td>
+          <td><span class="cat-badge cat-ux">UX/UI</span></td>
+          <td>A design property that communicates how an object should be used — a button that looks pressable, a link that appears clickable — guiding user interaction intuitively.</td>
+        </tr>
+
+        <!-- ── COLOR THEORY ──────────────────────────────────────── -->
+        <tr data-cat="color">
+          <td><span class="term-en">Color Theory</span></td>
+          <td><span class="term-es">Teoría del Color</span></td>
+          <td><span class="cat-badge cat-color">Color Theory</span></td>
+          <td>A body of practical guidance for color mixing and the visual effects of specific color combinations, based on scientific and artistic principles.</td>
+        </tr>
+
+        <tr data-cat="color">
+          <td><span class="term-en">Pantone Matching System</span></td>
+          <td><span class="term-es">Sistema de Igualación Pantone</span></td>
+          <td><span class="cat-badge cat-color">Color Theory</span></td>
+          <td>A standardized color reproduction system used globally in design, printing, and manufacturing to ensure consistent color communication across media.</td>
+        </tr>
+
+        <tr data-cat="color">
+          <td><span class="term-en">Semiology of Color</span></td>
+          <td><span class="term-es">Semiología del Color</span></td>
+          <td><span class="cat-badge cat-color">Color Theory</span></td>
+          <td>The study of color as a sign system, analyzing the cultural, psychological, and contextual meanings that colors communicate beyond their physical properties.</td>
+        </tr>
+
+        <tr data-cat="color">
+          <td><span class="term-en">Color Wheel</span></td>
+          <td><span class="term-es">Círculo Cromático</span></td>
+          <td><span class="cat-badge cat-color">Color Theory</span></td>
+          <td>A circular diagram organizing colors by their chromatic relationships, first systematized by Isaac Newton (1704), used to identify harmonious color combinations.</td>
+        </tr>
+
+        <tr data-cat="color">
+          <td><span class="term-en">Complementary Colors</span></td>
+          <td><span class="term-es">Colores Complementarios</span></td>
+          <td><span class="cat-badge cat-color">Color Theory</span></td>
+          <td>Colors located opposite each other on the color wheel that, when placed together, create high contrast and visual vibrancy; used strategically in UI design.</td>
+        </tr>
+
+        <tr data-cat="color">
+          <td><span class="term-en">Color Psychology</span></td>
+          <td><span class="term-es">Psicología del Color</span></td>
+          <td><span class="cat-badge cat-color">Color Theory</span></td>
+          <td>The study of how colors affect human perception, emotion, and behavior, applied in marketing, branding, and digital product design to guide user decisions.</td>
+        </tr>
+
+        <!-- ── AI ─────────────────────────────────────────────────── -->
+        <tr data-cat="ai">
+          <td><span class="term-en">Machine Learning</span></td>
+          <td><span class="term-es">Aprendizaje Automático</span></td>
+          <td><span class="cat-badge cat-ai">AI / IA</span></td>
+          <td>A subset of AI enabling systems to learn from data and improve performance on tasks without being explicitly programmed, through statistical pattern recognition.</td>
+        </tr>
+
+        <tr data-cat="ai">
+          <td><span class="term-en">Generative AI</span></td>
+          <td><span class="term-es">IA Generativa</span></td>
+          <td><span class="cat-badge cat-ai">AI / IA</span></td>
+          <td>AI systems capable of generating new content — text, images, code, audio — based on patterns learned from training data. Examples: GPT-4, Claude, DALL-E.</td>
+        </tr>
+
+        <tr data-cat="ai">
+          <td><span class="term-en">Algorithmic Bias</span></td>
+          <td><span class="term-es">Sesgo Algorítmico</span></td>
+          <td><span class="cat-badge cat-ai">AI / IA</span></td>
+          <td>Systematic and unfair discrimination in AI outputs caused by biased training data, leading to inequitable outcomes across demographic groups.</td>
+        </tr>
+
+        <tr data-cat="ai">
+          <td><span class="term-en">Natural Language Processing</span></td>
+          <td><span class="term-es">Procesamiento de Lenguaje Natural</span></td>
+          <td><span class="cat-badge cat-ai">AI / IA</span></td>
+          <td>An AI field focused on enabling computers to understand, interpret, and generate human language — powering chatbots, translation, and voice assistants.</td>
+        </tr>
+
+        <!-- ── BOOTSTRAP ──────────────────────────────────────────── -->
+        <tr data-cat="bootstrap">
+          <td><span class="term-en">Grid System</span></td>
+          <td><span class="term-es">Sistema de Cuadrícula</span></td>
+          <td><span class="cat-badge cat-bootstrap">Bootstrap</span></td>
+          <td>Bootstrap's 12-column responsive layout system based on Flexbox, enabling developers to build complex layouts with breakpoint-specific column sizing.</td>
+        </tr>
+
+        <tr data-cat="bootstrap">
+          <td><span class="term-en">Breakpoint</span></td>
+          <td><span class="term-es">Punto de Quiebre</span></td>
+          <td><span class="cat-badge cat-bootstrap">Bootstrap</span></td>
+          <td>Predefined screen width thresholds in Bootstrap (xs, sm, md, lg, xl, xxl) that trigger different layout behaviors for responsive design adaptation.</td>
+        </tr>
+
+        <tr data-cat="bootstrap">
+          <td><span class="term-en">Utility Classes</span></td>
+          <td><span class="term-es">Clases de Utilidad</span></td>
+          <td><span class="cat-badge cat-bootstrap">Bootstrap</span></td>
+          <td>Single-purpose CSS classes in Bootstrap (e.g., .mt-3, .d-flex, .text-center) that apply a specific style, reducing the need for custom CSS.</td>
+        </tr>
+
+        <tr data-cat="bootstrap">
+          <td><span class="term-en">Component</span></td>
+          <td><span class="term-es">Componente</span></td>
+          <td><span class="cat-badge cat-bootstrap">Bootstrap</span></td>
+          <td>A reusable UI building block in Bootstrap — such as a Card, Modal, Navbar, Carousel, or Accordion — combining HTML, CSS, and JavaScript behavior.</td>
+        </tr>
+
+        <!-- ── SOFTWARE ENGINEERING ──────────────────────────────── -->
+        <tr data-cat="software">
+          <td><span class="term-en">Version Control</span></td>
+          <td><span class="term-es">Control de Versiones</span></td>
+          <td><span class="cat-badge cat-software">Software Eng.</span></td>
+          <td>A system (e.g., Git) that records changes to files over time, enabling teams to track history, revert changes, and collaborate on code without conflicts.</td>
+        </tr>
+
+        <tr data-cat="software">
+          <td><span class="term-en">API (Application Programming Interface)</span></td>
+          <td><span class="term-es">Interfaz de Programación de Aplicaciones</span></td>
+          <td><span class="cat-badge cat-software">Software Eng.</span></td>
+          <td>A set of protocols and definitions that allows different software systems to communicate, enabling developers to use external functionality without knowing its implementation.</td>
+        </tr>
+
+        <tr data-cat="software">
+          <td><span class="term-en">Agile Methodology</span></td>
+          <td><span class="term-es">Metodología Ágil</span></td>
+          <td><span class="cat-badge cat-software">Software Eng.</span></td>
+          <td>An iterative approach to software development that delivers value in small, usable increments through collaboration, customer feedback and adaptation to change.</td>
+        </tr>
+
+        <tr data-cat="software">
+          <td><span class="term-en">DevOps</span></td>
+          <td><span class="term-es">Desarrollo y Operaciones</span></td>
+          <td><span class="cat-badge cat-software">Software Eng.</span></td>
+          <td>A set of practices combining software development and IT operations to shorten the development lifecycle and provide continuous delivery of high-quality software.</td>
+        </tr>
+
+        <tr data-cat="software">
+          <td><span class="term-en">Clean Code</span></td>
+          <td><span class="term-es">Código Limpio</span></td>
+          <td><span class="cat-badge cat-software">Software Eng.</span></td>
+          <td>Code that is easy to read, understand, and maintain — characterized by meaningful names, small functions, clear comments, and no duplication (DRY principle).</td>
+        </tr>
+
+        <!-- ── ACCESSIBILITY ──────────────────────────────────────── -->
+        <tr data-cat="accesib">
+          <td><span class="term-en">WCAG (Web Content Accessibility Guidelines)</span></td>
+          <td><span class="term-es">Pautas de Accesibilidad Web</span></td>
+          <td><span class="cat-badge cat-accesib">Accesibilidad</span></td>
+          <td>International standards published by W3C defining how to make web content more accessible to people with disabilities, organized around four principles: Perceivable, Operable, Understandable, Robust.</td>
+        </tr>
+
+        <tr data-cat="accesib">
+          <td><span class="term-en">ARIA (Accessible Rich Internet Applications)</span></td>
+          <td><span class="term-es">Aplicaciones de Internet Enriquecidas y Accesibles</span></td>
+          <td><span class="cat-badge cat-accesib">Accesibilidad</span></td>
+          <td>A set of HTML attributes that define ways to make web content and applications more accessible to assistive technologies like screen readers.</td>
+        </tr>
+
+        <tr data-cat="accesib">
+          <td><span class="term-en">Color Contrast Ratio</span></td>
+          <td><span class="term-es">Relación de Contraste de Color</span></td>
+          <td><span class="cat-badge cat-accesib">Accesibilidad</span></td>
+          <td>A measure of the luminance difference between foreground text and background color. WCAG AA requires a minimum ratio of 4.5:1 for normal text to ensure readability.</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="no-results" id="noResults">
+    <i class="bi bi-search" style="font-size:2.5rem;color:#ccc;"></i>
+    <p class="mt-2">No se encontraron términos para "<strong id="searchQuery"></strong>"</p>
+  </div>
+
+  <!-- Alert tip -->
+  <div class="alert d-flex align-items-start gap-3 mt-4 border-0 rounded-3" style="background:rgba(244,180,0,.1);border-left:4px solid #F4B400!important;" role="alert">
+    <i class="bi bi-lightbulb-fill text-warning fs-5 flex-shrink-0 mt-1"></i>
+    <div>
+      <strong class="d-block mb-1">💡 Tip Académico</strong>
+      Este glosario fue construido a partir de los conceptos clave aprendidos durante cuatro conferencias académicas en Colombia 5.0, Createx y Moda ECCI 2026. Cada término está directamente relacionado con el contenido de las conferencias de Andrés Pisso (UX), Sara Viloria (Color Theory) y los panelistas de IA y Transformación Digital.
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="../index.html" class="btn-primary-custom">
+      <i class="bi bi-arrow-left me-2"></i>Volver al Sitio Principal
+    </a>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer style="margin-top:3rem;">
+  <div class="container">
+    <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center">
+      <span>© 2026 Johanna — SENA ADSO · Glosario Técnico</span>
+      <a href="../index.html" style="color:rgba(255,255,255,.6);">
+        <i class="bi bi-house me-1"></i> Volver al inicio
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/script.js"></script>
+<script>
+  // ── GLOSSARY FILTERING & SEARCH ──────────────────────────
+  const rows       = document.querySelectorAll('#glossBody tr');
+  const filterBtns = document.querySelectorAll('.filter-tabs .btn');
+  const searchInput = document.getElementById('glossSearch');
+  const noResults   = document.getElementById('noResults');
+  const visibleCount = document.getElementById('visibleCount');
+  const searchQuery  = document.getElementById('searchQuery');
+
+  let currentCat = 'all';
+
+  function updateTable() {
+    const term = searchInput.value.toLowerCase().trim();
+    let count = 0;
+
+    rows.forEach(row => {
+      const en  = row.cells[0].textContent.toLowerCase();
+      const es  = row.cells[1].textContent.toLowerCase();
+      const cat = row.cells[2].textContent.toLowerCase();
+      const def = row.cells[3].textContent.toLowerCase();
+      const rowCat = row.dataset.cat;
+
+      const matchSearch = !term || en.includes(term) || es.includes(term) || cat.includes(term) || def.includes(term);
+      const matchCat    = currentCat === 'all' || rowCat === currentCat;
+
+      if (matchSearch && matchCat) {
+        row.style.display = '';
+        count++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    visibleCount.textContent = count;
+    noResults.style.display  = count === 0 ? 'block' : 'none';
+    if (searchQuery) searchQuery.textContent = searchInput.value;
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCat = btn.dataset.cat;
+      updateTable();
+    });
+  });
+
+  searchInput.addEventListener('input', updateTable);
+</script>
+</body>
+</html>
